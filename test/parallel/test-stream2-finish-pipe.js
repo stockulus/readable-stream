@@ -6,7 +6,7 @@ var Buffer = require('buffer').Buffer;
 
 var r = new stream.Readable();
 r._read = function (size) {
-  r.push(new Buffer(size));
+  r.push(Buffer.allocUnsafe(size));
 };
 
 var w = new stream.Writable();

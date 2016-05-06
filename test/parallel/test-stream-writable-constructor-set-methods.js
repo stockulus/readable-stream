@@ -11,7 +11,7 @@ function _write(d, e, n) {
 }
 
 var w = new Writable({ write: _write });
-w.end(new Buffer('blerg'));
+w.end(Buffer.from('blerg'));
 
 var _writevCalled = false;
 var dLength = 0;
@@ -23,8 +23,8 @@ function _writev(d, n) {
 var w2 = new Writable({ writev: _writev });
 w2.cork();
 
-w2.write(new Buffer('blerg'));
-w2.write(new Buffer('blerg'));
+w2.write(Buffer.from('blerg'));
+w2.write(Buffer.from('blerg'));
 w2.end();
 
 process.on('exit', function () {

@@ -20,7 +20,7 @@ stream._read = function (size) {
   reads++;
   size = Math.min(size, total);
   total -= size;
-  if (size === 0) stream.push(null);else stream.push(new Buffer(size));
+  if (size === 0) stream.push(null);else stream.push(Buffer.allocUnsafe(size));
 };
 
 var depth = 0;

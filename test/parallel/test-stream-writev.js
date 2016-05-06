@@ -64,7 +64,7 @@ function test(decode, uncork, multi, next) {
 
   if (multi) w.cork();
 
-  w.write(new Buffer('!'), 'buffer', cnt('!'));
+  w.write(Buffer.from('!'), 'buffer', cnt('!'));
   w.write('\nand then...', 'binary', cnt('and then'));
 
   if (multi) w.uncork();
@@ -78,7 +78,7 @@ function test(decode, uncork, multi, next) {
   w.on('finish', function () {
     // make sure finish comes after all the write cb
     cnt('finish')();
-    assert.deepEqual(expectChunks, actualChunks);
+    assert.deepStrictEqual(expectChunks, actualChunks);
     next();
   });
 }

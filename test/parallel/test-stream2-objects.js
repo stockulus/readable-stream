@@ -22,7 +22,7 @@ function run() {
   var fn = next[1];
   console.log('# %s', name);
   fn({
-    same: assert.deepEqual,
+    same: assert.deepStrictEqual,
     equal: assert.equal,
     end: function () {
       count--;
@@ -72,9 +72,9 @@ test('can read objects from stream', function (t) {
   var v2 = r.read();
   var v3 = r.read();
 
-  assert.deepEqual(v1, { one: '1' });
-  assert.deepEqual(v2, { two: '2' });
-  assert.deepEqual(v3, null);
+  assert.deepStrictEqual(v1, { one: '1' });
+  assert.deepStrictEqual(v2, { two: '2' });
+  assert.deepStrictEqual(v3, null);
 
   t.end();
 });
@@ -83,7 +83,7 @@ test('can pipe objects into stream', function (t) {
   var r = fromArray([{ one: '1' }, { two: '2' }]);
 
   r.pipe(toArray(function (list) {
-    assert.deepEqual(list, [{ one: '1' }, { two: '2' }]);
+    assert.deepStrictEqual(list, [{ one: '1' }, { two: '2' }]);
 
     t.end();
   }));
@@ -94,7 +94,7 @@ test('read(n) is ignored', function (t) {
 
   var value = r.read(2);
 
-  assert.deepEqual(value, { one: '1' });
+  assert.deepStrictEqual(value, { one: '1' });
 
   t.end();
 });
@@ -108,7 +108,7 @@ test('can read objects from _read (sync)', function (t) {
   };
 
   r.pipe(toArray(function (list) {
-    assert.deepEqual(list, [{ one: '1' }, { two: '2' }]);
+    assert.deepStrictEqual(list, [{ one: '1' }, { two: '2' }]);
 
     t.end();
   }));
@@ -125,7 +125,7 @@ test('can read objects from _read (async)', function (t) {
   };
 
   r.pipe(toArray(function (list) {
-    assert.deepEqual(list, [{ one: '1' }, { two: '2' }]);
+    assert.deepStrictEqual(list, [{ one: '1' }, { two: '2' }]);
 
     t.end();
   }));
@@ -143,7 +143,7 @@ test('can read strings as objects', function (t) {
   r.push(null);
 
   r.pipe(toArray(function (array) {
-    assert.deepEqual(array, list);
+    assert.deepStrictEqual(array, list);
 
     t.end();
   }));
@@ -159,7 +159,7 @@ test('read(0) for object streams', function (t) {
   r.push(null);
 
   r.pipe(toArray(function (array) {
-    assert.deepEqual(array, ['foobar']);
+    assert.deepStrictEqual(array, ['foobar']);
 
     t.end();
   }));
@@ -177,7 +177,7 @@ test('falsey values', function (t) {
   r.push(null);
 
   r.pipe(toArray(function (array) {
-    assert.deepEqual(array, [false, 0, '']);
+    assert.deepStrictEqual(array, [false, 0, '']);
 
     t.end();
   }));
@@ -233,7 +233,7 @@ test('can write objects to stream', function (t) {
   var w = new Writable({ objectMode: true });
 
   w._write = function (chunk, encoding, cb) {
-    assert.deepEqual(chunk, { foo: 'bar' });
+    assert.deepStrictEqual(chunk, { foo: 'bar' });
     cb();
   };
 
@@ -255,7 +255,7 @@ test('can write multiple objects to stream', function (t) {
   };
 
   w.on('finish', function () {
-    assert.deepEqual(list, [0, 1, 2, 3, 4]);
+    assert.deepStrictEqual(list, [0, 1, 2, 3, 4]);
 
     t.end();
   });
@@ -280,7 +280,7 @@ test('can write strings as objects', function (t) {
   };
 
   w.on('finish', function () {
-    assert.deepEqual(list, ['0', '1', '2', '3', '4']);
+    assert.deepStrictEqual(list, ['0', '1', '2', '3', '4']);
 
     t.end();
   });

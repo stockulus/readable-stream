@@ -18,7 +18,7 @@ var Readable = require('../../').Readable;
   };
 
   // This triggers a 'readable' event, which is lost.
-  r.push(new Buffer('blerg'));
+  r.push(Buffer.from('blerg'));
 
   var caughtReadable = false;
   setTimeout(function () {
@@ -52,7 +52,7 @@ var Readable = require('../../').Readable;
   };
 
   // This triggers a 'readable' event, which is lost.
-  r.push(new Buffer('bl'));
+  r.push(Buffer.from('bl'));
 
   var caughtReadable = false;
   setTimeout(function () {
@@ -85,7 +85,7 @@ var Readable = require('../../').Readable;
   };
 
   // This triggers a 'readable' event, which is lost.
-  r.push(new Buffer('blerg'));
+  r.push(Buffer.from('blerg'));
   r.push(null);
 
   var caughtReadable = false;

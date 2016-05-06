@@ -11,7 +11,7 @@ var stream = require('../../');
   source._read = function (n) {
     n = Math.min(count, n);
     count -= n;
-    source.push(new Buffer(n));
+    source.push(Buffer.allocUnsafe(n));
   };
 
   var unpipedDest;
@@ -51,7 +51,7 @@ var stream = require('../../');
   source._read = function (n) {
     n = Math.min(count, n);
     count -= n;
-    source.push(new Buffer(n));
+    source.push(Buffer.allocUnsafe(n));
   };
 
   var unpipedDest;
